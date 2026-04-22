@@ -1,0 +1,22 @@
+class Solution:
+    def checkTime(self, piles, h, speed):
+        time = 0
+        for bananas in piles:
+            time += math.ceil(bananas / speed)
+        if time > h:
+            return 1
+        else:
+            return -1
+    
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        l, r = 1, max(piles)
+        res = r
+        while l <= r:
+            speed = (l + r) // 2
+            check = self.checkTime(piles, h, speed)
+            if check == -1:
+                res = speed
+                r = speed - 1
+            else:
+                l = speed + 1
+        return res
